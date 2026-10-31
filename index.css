@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Thème sombre par défaut (palette inspirée des messageries modernes, identité NexChat conservée) */
+:root {
+  color-scheme: dark;
+  --nc-cyan: 0 217 181;
+  --nc-blue: 83 189 235;
+  --nc-bg: 11 20 26;
+  --nc-surface: 31 44 52;
+  --nc-raised: 42 57 66;
+  --nc-text: 233 237 239;
+  --nc-muted: 134 150 160;
+  --nc-out: 0 92 75;
+  --nc-in: 32 44 51;
+  --nc-chat: 11 20 26;
+  --nc-danger: 239 68 68;
+  --nc-warning: 245 158 11;
+  --nc-success: 16 185 129;
+}
+
+/* Thème clair : forcé, ou suivi du système si aucun choix n'est fait */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --nc-cyan: 0 168 132;
+  --nc-blue: 2 126 181;
+  --nc-bg: 255 255 255;
+  --nc-surface: 240 242 245;
+  --nc-raised: 225 229 232;
+  --nc-text: 17 27 33;
+  --nc-muted: 102 119 129;
+  --nc-out: 217 253 211;
+  --nc-in: 255 255 255;
+  --nc-chat: 239 234 226;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    color-scheme: light;
+    --nc-cyan: 0 168 132;
+    --nc-blue: 2 126 181;
+    --nc-bg: 255 255 255;
+    --nc-surface: 240 242 245;
+    --nc-raised: 225 229 232;
+    --nc-text: 17 27 33;
+    --nc-muted: 102 119 129;
+    --nc-out: 217 253 211;
+    --nc-in: 255 255 255;
+    --nc-chat: 239 234 226;
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-nc-bg text-nc-text font-sans antialiased;
+  }
+}
+
+@keyframes nc-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: nc-fade-up 0.25s ease-out both;
+  }
+
+  .chat-bg {
+    background-color: rgb(var(--nc-chat));
+    background-image: radial-gradient(rgb(var(--nc-muted) / 0.14) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
